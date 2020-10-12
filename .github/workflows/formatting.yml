@@ -10,7 +10,7 @@ jobs:
             - uses: actions/checkout@v2
             - name: Download tools
               run: |
-                  sudo apt-get update && sudo apt-get install clang-format
+                  sudo apt-get update && sudo apt-get install clang-format-10
                   echo "Clang-format version"
                   clang-format --version
                   wget https://raw.githubusercontent.com/Sarcasm/run-clang-format/master/run-clang-format.py
