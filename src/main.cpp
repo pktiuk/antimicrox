@@ -333,12 +333,11 @@ int main(int argc, char *argv[])
         if (!socket.waitForConnected(3000))
         {
             qDebug() << "Socket's state: " << socket.state() << endl;
-            qDebug() << "Server name: " << socket.serverName() << endl;
-            qDebug() << "Socket descriptor: " << socket.socketDescriptor() << endl;
-            qDebug() << "The connection hasn't been established: \nerror text -> " << socket.error() << "\nerror text 2 ->"
+            qDebug()<< "Server name: " <<socket.serverName() << endl;
+            qDebug()<< "Socket descriptor: "<< socket.socketDescriptor() << endl;
+            qDebug()<< "The connection hasn't been established: \nerror text -> " << socket.error() << "\nerror text 2 ->"
                      << socket.errorString() << endl;
-        } else
-        {
+        } else {
             qDebug() << "Socket connected" << endl;
         }
     } else
@@ -380,7 +379,7 @@ int main(int argc, char *argv[])
         if (!cmdutility.hasError() && (cmdutility.hasProfile() || cmdutility.hasProfileInOptions()))
         {
             mainWindow.saveAppConfig();
-        } else if (!cmdutility.hasError() && cmdutility.isUnloadRequested())
+        } else if(!cmdutility.hasError() && cmdutility.isUnloadRequested())
         {
             mainWindow.saveAppConfig();
         }
