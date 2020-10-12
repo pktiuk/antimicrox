@@ -1,6 +1,6 @@
 name: Check code formatting
 
-on: push
+on: pull_request
 
 jobs:
     test:
