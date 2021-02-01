@@ -17,6 +17,8 @@ Kudos to @Janfel for PR!
 
 **Fixed bugs:**
 
+zmiana 2
+
 - Clear shortcut not working [\#116](https://github.com/AntiMicroX/antimicrox/issues/116)
 - Assigning Text Entry to button doesn't assign proper string. [\#79](https://github.com/AntiMicroX/antimicrox/issues/79)
 - The uninstallation leaves several folders and files behind \(cmake\) [\#68](https://github.com/AntiMicroX/antimicrox/issues/68)
