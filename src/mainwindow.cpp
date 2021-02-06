@@ -75,7 +75,7 @@
 
 #include <SDL2/SDL_joystick.h>
 
-#define CHECK_BATTERIES_MSEC 600000
+#define CHECK_BATTERIES_MSEC 10000
 
 MainWindow::MainWindow(QMap<SDL_JoystickID, InputDevice *> *joysticks, CommandLineUtility *cmdutility,
                        AntiMicroSettings *settings, bool graphical, QWidget *parent)
