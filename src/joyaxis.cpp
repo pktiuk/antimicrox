@@ -46,8 +46,8 @@ JoyAxis::JoyAxis(int index, int originset, SetJoystick *parentSet, QObject *pare
     currentRawValue = 0;
     m_originset = originset;
     m_parentSet = parentSet;
-    naxisbutton = new JoyAxisButton(this, 0, originset, parentSet, this);
-    paxisbutton = new JoyAxisButton(this, 1, originset, parentSet, this);
+    naxisbutton = new JoyAxisButton(this, 0, originset, parentSet, nullptr);
+    paxisbutton = new JoyAxisButton(this, 1, originset, parentSet, nullptr);
 
     resetPrivateVars();
     m_index = index;
