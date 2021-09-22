@@ -65,7 +65,7 @@ jobs:
         pwd
         mkdir build
         cd build
-        cmake .. -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ 
+        cmake .. -DCMAKE_PREFIX_PATH="${{env.Qt5_Dir}}/lib/cmake/" -DQt5_DIR=${{env.Qt5_Dir}}/lib/cmake/Qt5/
     - name: Build
       run: |
         cmake --build .
