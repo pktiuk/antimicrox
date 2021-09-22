@@ -33,6 +33,10 @@ jobs:
     steps:
     - name: Install Qt
       uses: jurplel/install-qt-action@v2
+      with:
+        #use with mingw 8.1
+        arch: win64_mingw81
+
 
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
