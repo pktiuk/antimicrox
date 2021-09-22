@@ -41,13 +41,17 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    - name: Build
+    - name: Configure CMake
+      env:
+        CMAKE_PREFIX_PATH: ${{env.Qt5_Dir}}
       run: |
         ls
         pwd
         mkdir build
         cd .\build
-        cmake .. -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_PREFIX_PATH="D:/a/antimicrox/Qt/5.15.2/mingw81_64"
+        cmake .. -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ 
+    - name: Build
+      run: |
         cmake --build .
 
 
