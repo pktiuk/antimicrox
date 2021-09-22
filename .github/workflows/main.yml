@@ -43,7 +43,7 @@ jobs:
         pwd
         mkdir build
         cd .\build
-        cmake ..
+        cmake .. -D CMAKE_C_COMPILER=gcc -D CMAKE_CXX_COMPILER=g++
         cmake --build .
 
 
