@@ -31,11 +31,24 @@ jobs:
   build-windows:
     runs-on: windows-latest
     steps:
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v2
-      with:
-        #use with mingw 8.1
-        arch: win64_mingw81
+    - uses: msys2/setup-msys2@v2
+        with:
+            install: mingw-w64-x86_64-toolchain
+            msystem: mingw64
+            release: false
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v2
+        with:
+          version: '5.12.11'
+          host: 'windows'
+          target: 'desktop'
+          arch: 'win64_mingw73'
+          dir: '${{github.workspace}}/qt/'
+          install-deps: 'true'
+
+      - name: List files in Qt
+        run: find ${{env.Qt5_Dir}}
 
 
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
