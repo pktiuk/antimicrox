@@ -30,6 +30,9 @@ jobs:
 
   build-windows:
     runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
     steps:
     - uses: msys2/setup-msys2@v2
         with:
@@ -37,18 +40,18 @@ jobs:
             msystem: mingw64
             release: false
 
-      - name: Install Qt
-        uses: jurplel/install-qt-action@v2
-        with:
-          version: '5.12.11'
-          host: 'windows'
-          target: 'desktop'
-          arch: 'win64_mingw73'
-          dir: '${{github.workspace}}/qt/'
-          install-deps: 'true'
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v2
+      with:
+        version: '5.12.11'
+        host: 'windows'
+        target: 'desktop'
+        arch: 'win64_mingw73'
+        dir: '${{github.workspace}}/qt/'
+        install-deps: 'true'
 
-      - name: List files in Qt
-        run: find ${{env.Qt5_Dir}}
+    - name: List files in Qt
+      run: find ${{env.Qt5_Dir}}
 
 
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
