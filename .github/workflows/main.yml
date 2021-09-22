@@ -28,7 +28,20 @@ jobs:
         cmake ..
         make
 
+  build-windows:
+    runs-on: windows-latest
+    steps:
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v2
 
+    - name: Build
+      run: |
+        ls
+        pwd
+        mkdir build
+        cd .\build
+        cmake ..
+        cmake --build .
 
 
 
