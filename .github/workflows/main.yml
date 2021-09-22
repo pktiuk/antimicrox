@@ -34,18 +34,15 @@ jobs:
     - name: Install Qt
       uses: jurplel/install-qt-action@v2
 
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
     - name: Build
       run: |
         ls
         pwd
-        pwd
-        pwd
-        pwd
         mkdir build
         cd .\build
-        pwd
-        pwd
-        pwd
         cmake ..
         cmake --build .
 
