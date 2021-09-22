@@ -47,7 +47,7 @@ jobs:
         pwd
         mkdir build
         cd .\build
-        cmake .. -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++
+        cmake .. -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_PREFIX_PATH="D:/a/antimicrox/Qt/5.15.2/mingw81_64"
         cmake --build .
 
 
