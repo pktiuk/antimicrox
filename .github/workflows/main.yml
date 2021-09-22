@@ -38,8 +38,14 @@ jobs:
       run: |
         ls
         pwd
+        pwd
+        pwd
+        pwd
         mkdir build
         cd .\build
+        pwd
+        pwd
+        pwd
         cmake ..
         cmake --build .
 
