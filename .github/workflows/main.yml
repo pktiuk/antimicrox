@@ -1,6 +1,6 @@
 name: Build
 
-on: [ push, pull_request]
+on: [ push ]
 
 jobs:
   # This workflow contains a single job called "build"
@@ -43,7 +43,7 @@ jobs:
         pwd
         mkdir build
         cd .\build
-        cmake .. -D CMAKE_C_COMPILER=gcc -D CMAKE_CXX_COMPILER=g++
+        cmake .. -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++
         cmake --build .
 
 
