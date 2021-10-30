@@ -728,9 +728,9 @@ if(WIN32 AND NOT UNIX)
 )
 
     find_path(SDL2_DLL_LOCATION_DIR "SDL2.dll" HINTS "${SDL2_LIBRARY_DIRS}/../bin")
-    find_library( GCC_DLL "libgcc_s_seh-1.dll" )
-    find_library(EXTRA_DLLS_PTHREAD NAMES "libwinpthread-1.dll" )
-    find_library(EXTRA_DLLS_LIBCPP NAMES "libstdc++-6.dll" )
+    find_path(GCC_DLL "libgcc_s_seh-1.dll" HINTS "${SDL2_LIBRARY_DIRS}/../bin")
+    find_path(EXTRA_DLLS_PTHREAD "libwinpthread-1.dll" HINTS "${SDL2_LIBRARY_DIRS}/../bin")
+    find_path(EXTRA_DLLS_LIBCPP "libstdc++-6.dll" HINTS "${SDL2_LIBRARY_DIRS}/../bin")
     list(APPEND EXTRA_DLL_FILES
     "${CMAKE_CURRENT_BINARY_DIR}/bin/Qt5Core.dll"
     "${CMAKE_CURRENT_BINARY_DIR}/bin/Qt5Gui.dll"
@@ -739,9 +739,9 @@ if(WIN32 AND NOT UNIX)
     "${CMAKE_CURRENT_BINARY_DIR}/bin/Qt5Widgets.dll"
     "${CMAKE_CURRENT_BINARY_DIR}/bin/libEGL.dll"
     "${SDL2_DLL_LOCATION_DIR}/SDL2.dll"
-    "${GCC_DLL}"
-    "${EXTRA_DLLS_PTHREAD}"
-    "${EXTRA_DLLS_LIBCPP}"
+    "${GCC_DLL}/libgcc_s_seh-1.dll"
+    "${EXTRA_DLLS_PTHREAD}/libwinpthread-1.dll"
+    "${EXTRA_DLLS_LIBCPP}/libstdc++-6.dll"
     )
     # Target to copy Qt DLL files.
     add_custom_target(install_extra_dlls)
