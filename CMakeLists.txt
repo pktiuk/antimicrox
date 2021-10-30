@@ -548,6 +548,8 @@ elseif(WIN32)
     )
     target_link_libraries(antimicrox
         ${WIN_LIBS}
+        -static-libgcc
+        -static-libstdc++
     )
 endif(UNIX)
 
