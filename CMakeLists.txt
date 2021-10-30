@@ -68,6 +68,7 @@ set(ANTIMICROX_MAJOR_VERSION 3)
 set(ANTIMICROX_MINOR_VERSION 2)
 set(ANTIMICROX_PATCH_VERSION 0)
 
+set(CMAKE_BUILD_TYPE "Release")
 
 if(UNIX)
     option(WITH_X11 "Compile with support for X11." ON)
@@ -559,7 +560,7 @@ target_link_libraries(antimicrox
         ${SDL2_LIBRARIES}
         ${EXTRA_LIBS}
         )
-
+target_link_options(antimicrox PRIVATE -static-libgcc -static-libstdc++)
 ###############################
 # INSTALL
 ###############################
@@ -728,6 +729,7 @@ if(WIN32 AND NOT UNIX)
     "${CMAKE_CURRENT_BINARY_DIR}/bin/Qt5Concurrent.dll"
     "${CMAKE_CURRENT_BINARY_DIR}/bin/Qt5Network.dll"
     "${CMAKE_CURRENT_BINARY_DIR}/bin/Qt5Widgets.dll"
+    "${CMAKE_CURRENT_BINARY_DIR}/bin/libEGL.dll"
     "${SDL2_DLL_LOCATION_DIR}/SDL2.dll"
     )
     # Target to copy Qt DLL files.
