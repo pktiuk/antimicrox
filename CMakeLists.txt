@@ -27,7 +27,6 @@ if(POLICY CMP0071)
 endif()
 
 set(CMAKE_PREFIX_PATH "C:\\Qt\\Qt5.12.11\\5.12.11\\mingw73_64")
-set(CMAKE_INSTALL_PREFIX "C:/Users/pawel/installantimicrox") 
 
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules" "${CMAKE_ROOT}/Modules")
@@ -720,6 +719,13 @@ if(WIN32 AND NOT UNIX)
     set(CPACK_NSIS_HELP_LINK "http:\\\\\\\\github.com/AntiMicroX/antimicrox/wiki")
     set(CPACK_NSIS_URL_INFO_ABOUT "http:\\\\\\\\github.com/AntiMicroX/antimicrox")
     set(CPACK_NSIS_MODIFY_PATH ON)
+
+    get_target_property(QtCore_LOCATION Qt5::Core LOCATION)
+    get_filename_component(QT_DLL_DIR ${QtCore_LOCATION} PATH)
+    install(FILES
+  ${QT_DLL_DIR}/../plugins/platforms/qwindows.dll
+  DESTINATION ./platforms/
+)
 
     find_path(SDL2_DLL_LOCATION_DIR "SDL2.dll" HINTS "${SDL2_LIBRARY_DIRS}/../bin")
     message("SDL2: dll: ${SDL2_DLL_LOCATION_DIR}")
