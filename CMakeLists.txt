@@ -724,7 +724,7 @@ if(WIN32 AND NOT UNIX)
     get_filename_component(QT_DLL_DIR ${QtCore_LOCATION} PATH)
     install(FILES
   ${QT_DLL_DIR}/../plugins/platforms/qwindows.dll
-  DESTINATION ./platforms/
+  DESTINATION ./bin/platforms/
 )
 
     find_path(SDL2_DLL_LOCATION_DIR "SDL2.dll" HINTS "${SDL2_LIBRARY_DIRS}/../bin")
