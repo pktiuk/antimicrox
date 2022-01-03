@@ -642,9 +642,13 @@ if(WIN32)
         message("Searching for SSL DLL-s.")
         find_path(LIBCRYPTO_DLL_DIR "libcrypto-1_1-x64.dll" HINTS "${SDL2_LIBRARY_DIRS}/../bin")
         find_path(LIBSSL_DLL_DIR "libssl-1_1-x64.dll" HINTS "${SDL2_LIBRARY_DIRS}/../bin")
+        find_path(LIBCAPI_DLL_DIR "libcrypto-1_1-x64.dll" HINTS "${SDL2_LIBRARY_DIRS}/../bin")
+        find_path(LIBDASYNC_DLL_DIR "libssl-1_1-x64.dll" HINTS "${SDL2_LIBRARY_DIRS}/../bin")
         list(APPEND DLL_FILES
         "${LIBCRYPTO_DLL_DIR}/libcrypto-1_1-x64.dll"
         "${LIBSSL_DLL_DIR}/libssl-1_1-x64.dll"
+        "${LIBCAPI_DLL_DIR}/capi.dll"
+        "${LIBDASYNC_DLL_DIR}/dasync.dll"
         )
     endif(CHECK_FOR_UPDATES)
 
