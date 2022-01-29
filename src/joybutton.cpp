@@ -262,7 +262,7 @@ void JoyButton::joyEvent(bool pressed, bool ignoresets)
                     else
                         lastDistance = getMouseDistanceFromDeadZone();
 
-                    activeZoneTimer.start();
+                    // activeZoneTimer.start();
                 }
             }
             // Toogle is enabled and a controller button change has occurred.
@@ -659,7 +659,7 @@ void JoyButton::activateSlots()
             keyPressEvent();
         }
 
-        activeZoneTimer.start();
+        // activeZoneTimer.start();
     }
 }
 
@@ -3175,7 +3175,7 @@ void JoyButton::releaseActiveSlots()
             GlobalVariables::JoyButton::cursorRemainderY = 0;
         }
 
-        activeZoneTimer.start();
+        // activeZoneTimer.start();
     }
 }
 
