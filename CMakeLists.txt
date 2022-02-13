@@ -752,7 +752,7 @@ if(WIN32 AND NOT UNIX)
     set(CPACK_PACKAGE_ICON "${PROJECT_SOURCE_DIR}/src/icons\\\\antimicrox.ico")
     set(CPACK_NSIS_MUI_ICON "${CPACK_PACKAGE_ICON}")
     set(CPACK_NSIS_MUI_UNIICON "${CPACK_PACKAGE_ICON}")
-    set(CPACK_NSIS_INSTALLED_ICON_NAME "bin\\antimicrox.exe")
+    set(CPACK_NSIS_INSTALLED_ICON_NAME "bin/antimicrox.exe")
 
     set(CPACK_NSIS_DISPLAY_NAME "AntiMicroX")
     set(CPACK_NSIS_PACKAGE_NAME "AntiMicroX")
