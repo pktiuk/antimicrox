@@ -145,4 +145,11 @@ jobs:
               uses: AButler/upload-release-assets@v2.0
               with:
                   files: build/antimicrox*.exe
-                  repo-token: ${{ github.token }}
+                  repo-token: ${{ github.token }}    
+               
+            - name: Archive NSIS logs
+              if: failure()
+              uses: actions/upload-artifact@v1
+              with:
+                name: test-results
+                path: D:/a/antimicrox/antimicrox/build/_CPack_Packages/win64/NSIS/NSISOutput.log
