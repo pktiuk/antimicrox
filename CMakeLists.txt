@@ -1,21 +1,20 @@
-## antimicrox Gamepad to KB+M event mapper
-## Copyright (C) 2015 Travis Nickles <nickles.travis@gmail.com>
-## Copyright (C) 2020 Jagoda Górska <juliagoda.pl@protonmail.com>
-## Copyright (C) 2020 Paweł Kotiuk <kotiuk@zohomail.eu>
-##
-## This program is free software: you can redistribute it and/or modify
-## it under the terms of the GNU General Public License as published by
-## the Free Software Foundation, either version 3 of the License, or
-## (at your option) any later version.
-##
-## This program is distributed in the hope that it will be useful,
-## but WITHOUT ANY WARRANTY; without even the implied warranty of
-## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-## GNU General Public License for more details.
-##
-## You should have received a copy of the GNU General Public License
-## along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+# # antimicrox Gamepad to KB+M event mapper
+# # Copyright (C) 2015 Travis Nickles <nickles.travis@gmail.com>
+# # Copyright (C) 2020 Jagoda Górska <juliagoda.pl@protonmail.com>
+# # Copyright (C) 2020 Paweł Kotiuk <kotiuk@zohomail.eu>
+# #
+# # This program is free software: you can redistribute it and/or modify
+# # it under the terms of the GNU General Public License as published by
+# # the Free Software Foundation, either version 3 of the License, or
+# # (at your option) any later version.
+# #
+# # This program is distributed in the hope that it will be useful,
+# # but WITHOUT ANY WARRANTY; without even the implied warranty of
+# # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# # GNU General Public License for more details.
+# #
+# # You should have received a copy of the GNU General Public License
+# # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 cmake_minimum_required(VERSION 3.12)
 set(QT_REQUIRED_VERSION 5.8)
@@ -30,7 +29,6 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake/mo
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-
 if(UNIX AND NOT APPLE AND CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX "/usr" CACHE PATH "force cmake prefix to be set for /usr" FORCE)
 endif(UNIX AND NOT APPLE AND CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
@@ -40,15 +38,16 @@ include(GNUInstallDirs)
 
 CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
 
-
 if(COMPILER_SUPPORTS_CXX11)
     message("Build type: ${CMAKE_BUILD_TYPE}")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -g -O0 -fno-omit-frame-pointer")
+
     if(UNIX AND NOT CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
         set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -rdynamic")
     endif(UNIX AND NOT CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic -Wall -Wextra -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wlogical-op -Wmissing-declarations -Wmissing-include-dirs -Wnoexcept -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wstrict-null-sentinel -Wstrict-overflow=5 -Wundef -Wno-unused -std=c++11")
+
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic -Wall -Wextra -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wlogical-op -Wmissing-declarations -Wmissing-include-dirs -Wnoexcept -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wstrict-null-sentinel -Wstrict-overflow=5 -Wundef -Wno-unused -std=c++11")
 else()
     message(FATAL_ERROR "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
 endif(COMPILER_SUPPORTS_CXX11)
@@ -109,333 +108,331 @@ if(UNIX)
     endif(NOT WITH_XTEST AND NOT WITH_UINPUT)
 endif(UNIX)
 
-###############################
+# ##############################
 # PLATFORM-INDEPENDENT FILES
-###############################
-
+# ##############################
 set(antimicrox_MAIN src/main.cpp)
 
 set(antimicrox_SOURCES
-        src/antimicrosettings.cpp
-        src/antkeymapper.cpp
-        src/applaunchhelper.cpp
-        src/autoprofileinfo.cpp
-        src/axisvaluebox.cpp
-        src/commandlineutility.cpp
-        src/common.cpp
-        src/dpadcontextmenu.cpp
-        src/dpadpushbutton.cpp
-        src/dpadpushbuttongroup.cpp
-        src/event.cpp
-        src/eventhandlerfactory.cpp
-        src/eventhandlers/baseeventhandler.cpp
-        src/gamecontroller/gamecontroller.cpp
-        src/gamecontroller/gamecontrollerdpad.cpp
-        src/gamecontroller/gamecontrollerset.cpp
-        src/gamecontroller/gamecontrollertrigger.cpp
-        src/gamecontroller/gamecontrollertriggerbutton.cpp
-        src/gamecontroller/xml/gamecontrollerdpadxml.cpp
-        src/gamecontroller/xml/gamecontrollertriggerxml.cpp
-        src/gamecontroller/xml/gamecontrollerxml.cpp
-        src/gamecontrollerexample.cpp
-        src/globalvariables.cpp
-        src/gui/aboutdialog.cpp
-        src/gui/addeditautoprofiledialog.cpp
-        src/gui/advancebuttondialog.cpp
-        src/gui/advancestickassignmentdialog.cpp
-        src/gui/axiseditdialog.cpp
-        src/gui/buttoneditdialog.cpp
-        src/gui/calibration.cpp
-        src/gui/dpadeditdialog.cpp
-        src/gui/editalldefaultautoprofiledialog.cpp
-        src/gui/extraprofilesettingsdialog.cpp
-        src/gui/flashbuttonwidget.cpp
-        src/gui/gamecontrollermappingdialog.cpp
-        src/gui/joyaxiswidget.cpp
-        src/gui/joybuttonwidget.cpp
-        src/gui/joycontrolstickeditdialog.cpp
-        src/gui/joydpadbuttonwidget.cpp
-        src/gui/joysensoreditdialog.cpp
-        src/gui/joystickstatuswindow.cpp
-        src/gui/joytabwidget.cpp
-        src/gui/joytabwidgetcontainer.cpp
-        src/gui/mainsettingsdialog.cpp
-        src/gui/mainwindow.cpp
-        src/gui/mousesettingsdialog.cpp
-        src/gui/qkeydisplaydialog.cpp
-        src/gui/quicksetdialog.cpp
-        src/gui/setaxisthrottledialog.cpp
-        src/gui/setnamesdialog.cpp
-        src/gui/slotitemlistwidget.cpp
-        src/inputdaemon.cpp
-        src/inputdevice.cpp
-        src/inputdevicebitarraystatus.cpp
-        src/inputdevicecalibration.cpp
-        src/joyaccelerometersensor.cpp
-        src/joyaxis.cpp
-        src/joyaxiscontextmenu.cpp
-        src/joybutton.cpp
-        src/joybuttoncontextmenu.cpp
-        src/joybuttonmousehelper.cpp
-        src/joybuttonslot.cpp
-        src/joybuttonstatusbox.cpp
-        src/joybuttontypes/joyaccelerometerbutton.cpp
-        src/joybuttontypes/joyaxisbutton.cpp
-        src/joybuttontypes/joycontrolstickbutton.cpp
-        src/joybuttontypes/joycontrolstickmodifierbutton.cpp
-        src/joybuttontypes/joydpadbutton.cpp
-        src/joybuttontypes/joygradientbutton.cpp
-        src/joybuttontypes/joygyroscopebutton.cpp
-        src/joybuttontypes/joysensorbutton.cpp
-        src/joycontrolstick.cpp
-        src/joycontrolstickbuttonpushbutton.cpp
-        src/joycontrolstickcontextmenu.cpp
-        src/joycontrolstickpushbutton.cpp
-        src/joycontrolstickstatusbox.cpp
-        src/joydpad.cpp
-        src/joygyroscopesensor.cpp
-        src/joysensor.cpp
-        src/joysensorbuttonpushbutton.cpp
-        src/joysensorcontextmenu.cpp
-        src/joysensorfactory.cpp
-        src/joysensorpreset.cpp
-        src/joysensorpushbutton.cpp
-        src/joysensorstatusbox.cpp
-        src/joystick.cpp
-        src/keyboard/virtualkeyboardmousewidget.cpp
-        src/keyboard/virtualkeypushbutton.cpp
-        src/keyboard/virtualmousepushbutton.cpp
-        src/localantimicroserver.cpp
-        src/logger.cpp
-        src/mousedialog/mouseaxissettingsdialog.cpp
-        src/mousedialog/mousebuttonsettingsdialog.cpp
-        src/mousedialog/mousecontrolsticksettingsdialog.cpp
-        src/mousedialog/mousedpadsettingsdialog.cpp
-        src/mousedialog/mousesensorsettingsdialog.cpp
-        src/mousedialog/springmoderegionpreview.cpp
-        src/mousedialog/uihelpers/mouseaxissettingsdialoghelper.cpp
-        src/mousedialog/uihelpers/mousebuttonsettingsdialoghelper.cpp
-        src/mousedialog/uihelpers/mousecontrolsticksettingsdialoghelper.cpp
-        src/mousedialog/uihelpers/mousedpadsettingsdialoghelper.cpp
-        src/mousehelper.cpp
-        src/pt1filter.cpp
-        src/qtkeymapperbase.cpp
-        src/sdleventreader.cpp
-        src/sensorpushbuttongroup.cpp
-        src/setjoystick.cpp
-        src/simplekeygrabberbutton.cpp
-        src/statisticsestimator.cpp
-        src/stickpushbuttongroup.cpp
-        src/uihelpers/advancebuttondialoghelper.cpp
-        src/uihelpers/buttoneditdialoghelper.cpp
-        src/uihelpers/dpadcontextmenuhelper.cpp
-        src/uihelpers/dpadeditdialoghelper.cpp
-        src/uihelpers/gamecontrollermappingdialoghelper.cpp
-        src/uihelpers/joyaxiscontextmenuhelper.cpp
-        src/uihelpers/joycontrolstickcontextmenuhelper.cpp
-        src/uihelpers/joycontrolstickeditdialoghelper.cpp
-        src/uihelpers/joysensoriothreadhelper.cpp
-        src/uihelpers/joytabwidgethelper.cpp
-        src/vdpad.cpp
-        src/xml/inputdevicexml.cpp
-        src/xml/joyaxisxml.cpp
-        src/xml/joybuttonslotxml.cpp
-        src/xml/joybuttonxml.cpp
-        src/xml/joydpadxml.cpp
-        src/xml/setjoystickxml.cpp
-        src/xmlconfigmigration.cpp
-        src/xmlconfigreader.cpp
-        src/xmlconfigwriter.cpp
-        )
+    src/antimicrosettings.cpp
+    src/antkeymapper.cpp
+    src/applaunchhelper.cpp
+    src/autoprofileinfo.cpp
+    src/axisvaluebox.cpp
+    src/commandlineutility.cpp
+    src/common.cpp
+    src/dpadcontextmenu.cpp
+    src/dpadpushbutton.cpp
+    src/dpadpushbuttongroup.cpp
+    src/event.cpp
+    src/eventhandlerfactory.cpp
+    src/eventhandlers/baseeventhandler.cpp
+    src/gamecontroller/gamecontroller.cpp
+    src/gamecontroller/gamecontrollerdpad.cpp
+    src/gamecontroller/gamecontrollerset.cpp
+    src/gamecontroller/gamecontrollertrigger.cpp
+    src/gamecontroller/gamecontrollertriggerbutton.cpp
+    src/gamecontroller/xml/gamecontrollerdpadxml.cpp
+    src/gamecontroller/xml/gamecontrollertriggerxml.cpp
+    src/gamecontroller/xml/gamecontrollerxml.cpp
+    src/gamecontrollerexample.cpp
+    src/globalvariables.cpp
+    src/gui/aboutdialog.cpp
+    src/gui/addeditautoprofiledialog.cpp
+    src/gui/advancebuttondialog.cpp
+    src/gui/advancestickassignmentdialog.cpp
+    src/gui/axiseditdialog.cpp
+    src/gui/buttoneditdialog.cpp
+    src/gui/calibration.cpp
+    src/gui/dpadeditdialog.cpp
+    src/gui/editalldefaultautoprofiledialog.cpp
+    src/gui/extraprofilesettingsdialog.cpp
+    src/gui/flashbuttonwidget.cpp
+    src/gui/gamecontrollermappingdialog.cpp
+    src/gui/joyaxiswidget.cpp
+    src/gui/joybuttonwidget.cpp
+    src/gui/joycontrolstickeditdialog.cpp
+    src/gui/joydpadbuttonwidget.cpp
+    src/gui/joysensoreditdialog.cpp
+    src/gui/joystickstatuswindow.cpp
+    src/gui/joytabwidget.cpp
+    src/gui/joytabwidgetcontainer.cpp
+    src/gui/mainsettingsdialog.cpp
+    src/gui/mainwindow.cpp
+    src/gui/mousesettingsdialog.cpp
+    src/gui/qkeydisplaydialog.cpp
+    src/gui/quicksetdialog.cpp
+    src/gui/setaxisthrottledialog.cpp
+    src/gui/setnamesdialog.cpp
+    src/gui/slotitemlistwidget.cpp
+    src/inputdaemon.cpp
+    src/inputdevice.cpp
+    src/inputdevicebitarraystatus.cpp
+    src/inputdevicecalibration.cpp
+    src/joyaccelerometersensor.cpp
+    src/joyaxis.cpp
+    src/joyaxiscontextmenu.cpp
+    src/joybutton.cpp
+    src/joybuttoncontextmenu.cpp
+    src/joybuttonmousehelper.cpp
+    src/joybuttonslot.cpp
+    src/joybuttonstatusbox.cpp
+    src/joybuttontypes/joyaccelerometerbutton.cpp
+    src/joybuttontypes/joyaxisbutton.cpp
+    src/joybuttontypes/joycontrolstickbutton.cpp
+    src/joybuttontypes/joycontrolstickmodifierbutton.cpp
+    src/joybuttontypes/joydpadbutton.cpp
+    src/joybuttontypes/joygradientbutton.cpp
+    src/joybuttontypes/joygyroscopebutton.cpp
+    src/joybuttontypes/joysensorbutton.cpp
+    src/joycontrolstick.cpp
+    src/joycontrolstickbuttonpushbutton.cpp
+    src/joycontrolstickcontextmenu.cpp
+    src/joycontrolstickpushbutton.cpp
+    src/joycontrolstickstatusbox.cpp
+    src/joydpad.cpp
+    src/joygyroscopesensor.cpp
+    src/joysensor.cpp
+    src/joysensorbuttonpushbutton.cpp
+    src/joysensorcontextmenu.cpp
+    src/joysensorfactory.cpp
+    src/joysensorpreset.cpp
+    src/joysensorpushbutton.cpp
+    src/joysensorstatusbox.cpp
+    src/joystick.cpp
+    src/keyboard/virtualkeyboardmousewidget.cpp
+    src/keyboard/virtualkeypushbutton.cpp
+    src/keyboard/virtualmousepushbutton.cpp
+    src/localantimicroserver.cpp
+    src/logger.cpp
+    src/mousedialog/mouseaxissettingsdialog.cpp
+    src/mousedialog/mousebuttonsettingsdialog.cpp
+    src/mousedialog/mousecontrolsticksettingsdialog.cpp
+    src/mousedialog/mousedpadsettingsdialog.cpp
+    src/mousedialog/mousesensorsettingsdialog.cpp
+    src/mousedialog/springmoderegionpreview.cpp
+    src/mousedialog/uihelpers/mouseaxissettingsdialoghelper.cpp
+    src/mousedialog/uihelpers/mousebuttonsettingsdialoghelper.cpp
+    src/mousedialog/uihelpers/mousecontrolsticksettingsdialoghelper.cpp
+    src/mousedialog/uihelpers/mousedpadsettingsdialoghelper.cpp
+    src/mousehelper.cpp
+    src/pt1filter.cpp
+    src/qtkeymapperbase.cpp
+    src/sdleventreader.cpp
+    src/sensorpushbuttongroup.cpp
+    src/setjoystick.cpp
+    src/simplekeygrabberbutton.cpp
+    src/statisticsestimator.cpp
+    src/stickpushbuttongroup.cpp
+    src/uihelpers/advancebuttondialoghelper.cpp
+    src/uihelpers/buttoneditdialoghelper.cpp
+    src/uihelpers/dpadcontextmenuhelper.cpp
+    src/uihelpers/dpadeditdialoghelper.cpp
+    src/uihelpers/gamecontrollermappingdialoghelper.cpp
+    src/uihelpers/joyaxiscontextmenuhelper.cpp
+    src/uihelpers/joycontrolstickcontextmenuhelper.cpp
+    src/uihelpers/joycontrolstickeditdialoghelper.cpp
+    src/uihelpers/joysensoriothreadhelper.cpp
+    src/uihelpers/joytabwidgethelper.cpp
+    src/vdpad.cpp
+    src/xml/inputdevicexml.cpp
+    src/xml/joyaxisxml.cpp
+    src/xml/joybuttonslotxml.cpp
+    src/xml/joybuttonxml.cpp
+    src/xml/joydpadxml.cpp
+    src/xml/setjoystickxml.cpp
+    src/xmlconfigmigration.cpp
+    src/xmlconfigreader.cpp
+    src/xmlconfigwriter.cpp
+)
 
 set(antimicrox_HEADERS
-        src/antimicrosettings.h
-        src/antkeymapper.h
-        src/applaunchhelper.h
-        src/autoprofileinfo.h
-        src/axisvaluebox.h
-        src/commandlineutility.h
-        src/dpadcontextmenu.h
-        src/dpadpushbutton.h
-        src/dpadpushbuttongroup.h
-        src/eventhandlerfactory.h
-        src/eventhandlers/baseeventhandler.h
-        src/gamecontroller/gamecontroller.h
-        src/gamecontroller/gamecontrollerdpad.h
-        src/gamecontroller/gamecontrollerset.h
-        src/gamecontroller/gamecontrollertrigger.h
-        src/gamecontroller/gamecontrollertriggerbutton.h
-        src/gamecontroller/xml/gamecontrollerdpadxml.h
-        src/gamecontroller/xml/gamecontrollertriggerxml.h
-        src/gamecontroller/xml/gamecontrollerxml.h
-        src/gamecontrollerexample.h
-        src/globalvariables.h
-        src/gui/aboutdialog.h
-        src/gui/addeditautoprofiledialog.h
-        src/gui/advancebuttondialog.h
-        src/gui/advancestickassignmentdialog.h
-        src/gui/axiseditdialog.h
-        src/gui/buttoneditdialog.h
-        src/gui/calibration.h
-        src/gui/dpadeditdialog.h
-        src/gui/editalldefaultautoprofiledialog.h
-        src/gui/extraprofilesettingsdialog.h
-        src/gui/flashbuttonwidget.h
-        src/gui/gamecontrollermappingdialog.h
-        src/gui/joyaxiswidget.h
-        src/gui/joybuttonwidget.h
-        src/gui/joycontrolstickeditdialog.h
-        src/gui/joydpadbuttonwidget.h
-        src/gui/joysensoreditdialog.h
-        src/gui/joystickstatuswindow.h
-        src/gui/joytabwidget.h
-        src/gui/joytabwidgetcontainer.h
-        src/gui/mainsettingsdialog.h
-        src/gui/mainwindow.h
-        src/gui/mousesettingsdialog.h
-        src/gui/qkeydisplaydialog.h
-        src/gui/quicksetdialog.h
-        src/gui/setaxisthrottledialog.h
-        src/gui/setnamesdialog.h
-        src/gui/slotitemlistwidget.h
-        src/inputdaemon.h
-        src/inputdevice.h
-        src/inputdevicebitarraystatus.h
-        src/inputdevicecalibration.h
-        src/joyaccelerometersensor.h
-        src/joyaxis.h
-        src/joyaxiscontextmenu.h
-        src/joybutton.h
-        src/joybuttoncontextmenu.h
-        src/joybuttonmousehelper.h
-        src/joybuttonslot.h
-        src/joybuttonstatusbox.h
-        src/joybuttontypes/joyaccelerometerbutton.h
-        src/joybuttontypes/joyaxisbutton.h
-        src/joybuttontypes/joycontrolstickbutton.h
-        src/joybuttontypes/joycontrolstickmodifierbutton.h
-        src/joybuttontypes/joydpadbutton.h
-        src/joybuttontypes/joygradientbutton.h
-        src/joybuttontypes/joygyroscopebutton.h
-        src/joybuttontypes/joysensorbutton.h
-        src/joycontrolstick.h
-        src/joycontrolstickbuttonpushbutton.h
-        src/joycontrolstickcontextmenu.h
-        src/joycontrolstickpushbutton.h
-        src/joycontrolstickstatusbox.h
-        src/joydpad.h
-        src/joygyroscopesensor.h
-        src/joysensor.h
-        src/joysensorbuttonpushbutton.h
-        src/joysensorcontextmenu.h
-        src/joysensordirection.h
-        src/joysensorfactory.h
-        src/joysensorpreset.h
-        src/joysensorpushbutton.h
-        src/joysensorstatusbox.h
-        src/joysensortype.h
-        src/joystick.h
-        src/keyboard/virtualkeyboardmousewidget.h
-        src/keyboard/virtualkeypushbutton.h
-        src/keyboard/virtualmousepushbutton.h
-        src/localantimicroserver.h
-        src/logger.h
-        src/mousedialog/mouseaxissettingsdialog.h
-        src/mousedialog/mousebuttonsettingsdialog.h
-        src/mousedialog/mousecontrolsticksettingsdialog.h
-        src/mousedialog/mousedpadsettingsdialog.h
-        src/mousedialog/springmoderegionpreview.h
-        src/mousedialog/mousesensorsettingsdialog.h
-        src/mousedialog/uihelpers/mouseaxissettingsdialoghelper.h
-        src/mousedialog/uihelpers/mousebuttonsettingsdialoghelper.h
-        src/mousedialog/uihelpers/mousecontrolsticksettingsdialoghelper.h
-        src/mousedialog/uihelpers/mousedpadsettingsdialoghelper.h
-        src/mousehelper.h
-        src/pt1filter.h
-        src/qtkeymapperbase.h
-        src/sdleventreader.h
-        src/sensorpushbuttongroup.h
-        src/setjoystick.h
-        src/simplekeygrabberbutton.h
-        src/statisticsestimator.h
-        src/stickpushbuttongroup.h
-        src/uihelpers/advancebuttondialoghelper.h
-        src/uihelpers/buttoneditdialoghelper.h
-        src/uihelpers/dpadcontextmenuhelper.h
-        src/uihelpers/dpadeditdialoghelper.h
-        src/uihelpers/gamecontrollermappingdialoghelper.h
-        src/uihelpers/joyaxiscontextmenuhelper.h
-        src/uihelpers/joycontrolstickcontextmenuhelper.h
-        src/uihelpers/joycontrolstickeditdialoghelper.h
-        src/uihelpers/joysensoriothreadhelper.h
-        src/uihelpers/joytabwidgethelper.h
-        src/vdpad.h
-        src/xml/inputdevicexml.h
-        src/xml/joyaxisxml.h
-        src/xml/joybuttonslotxml.h
-        src/xml/joybuttonxml.h
-        src/xml/joydpadxml.h
-        src/xml/setjoystickxml.h
-        src/xmlconfigmigration.h
-        src/xmlconfigreader.h
-        src/xmlconfigwriter.h
-        )
+    src/antimicrosettings.h
+    src/antkeymapper.h
+    src/applaunchhelper.h
+    src/autoprofileinfo.h
+    src/axisvaluebox.h
+    src/commandlineutility.h
+    src/dpadcontextmenu.h
+    src/dpadpushbutton.h
+    src/dpadpushbuttongroup.h
+    src/eventhandlerfactory.h
+    src/eventhandlers/baseeventhandler.h
+    src/gamecontroller/gamecontroller.h
+    src/gamecontroller/gamecontrollerdpad.h
+    src/gamecontroller/gamecontrollerset.h
+    src/gamecontroller/gamecontrollertrigger.h
+    src/gamecontroller/gamecontrollertriggerbutton.h
+    src/gamecontroller/xml/gamecontrollerdpadxml.h
+    src/gamecontroller/xml/gamecontrollertriggerxml.h
+    src/gamecontroller/xml/gamecontrollerxml.h
+    src/gamecontrollerexample.h
+    src/globalvariables.h
+    src/gui/aboutdialog.h
+    src/gui/addeditautoprofiledialog.h
+    src/gui/advancebuttondialog.h
+    src/gui/advancestickassignmentdialog.h
+    src/gui/axiseditdialog.h
+    src/gui/buttoneditdialog.h
+    src/gui/calibration.h
+    src/gui/dpadeditdialog.h
+    src/gui/editalldefaultautoprofiledialog.h
+    src/gui/extraprofilesettingsdialog.h
+    src/gui/flashbuttonwidget.h
+    src/gui/gamecontrollermappingdialog.h
+    src/gui/joyaxiswidget.h
+    src/gui/joybuttonwidget.h
+    src/gui/joycontrolstickeditdialog.h
+    src/gui/joydpadbuttonwidget.h
+    src/gui/joysensoreditdialog.h
+    src/gui/joystickstatuswindow.h
+    src/gui/joytabwidget.h
+    src/gui/joytabwidgetcontainer.h
+    src/gui/mainsettingsdialog.h
+    src/gui/mainwindow.h
+    src/gui/mousesettingsdialog.h
+    src/gui/qkeydisplaydialog.h
+    src/gui/quicksetdialog.h
+    src/gui/setaxisthrottledialog.h
+    src/gui/setnamesdialog.h
+    src/gui/slotitemlistwidget.h
+    src/inputdaemon.h
+    src/inputdevice.h
+    src/inputdevicebitarraystatus.h
+    src/inputdevicecalibration.h
+    src/joyaccelerometersensor.h
+    src/joyaxis.h
+    src/joyaxiscontextmenu.h
+    src/joybutton.h
+    src/joybuttoncontextmenu.h
+    src/joybuttonmousehelper.h
+    src/joybuttonslot.h
+    src/joybuttonstatusbox.h
+    src/joybuttontypes/joyaccelerometerbutton.h
+    src/joybuttontypes/joyaxisbutton.h
+    src/joybuttontypes/joycontrolstickbutton.h
+    src/joybuttontypes/joycontrolstickmodifierbutton.h
+    src/joybuttontypes/joydpadbutton.h
+    src/joybuttontypes/joygradientbutton.h
+    src/joybuttontypes/joygyroscopebutton.h
+    src/joybuttontypes/joysensorbutton.h
+    src/joycontrolstick.h
+    src/joycontrolstickbuttonpushbutton.h
+    src/joycontrolstickcontextmenu.h
+    src/joycontrolstickpushbutton.h
+    src/joycontrolstickstatusbox.h
+    src/joydpad.h
+    src/joygyroscopesensor.h
+    src/joysensor.h
+    src/joysensorbuttonpushbutton.h
+    src/joysensorcontextmenu.h
+    src/joysensordirection.h
+    src/joysensorfactory.h
+    src/joysensorpreset.h
+    src/joysensorpushbutton.h
+    src/joysensorstatusbox.h
+    src/joysensortype.h
+    src/joystick.h
+    src/keyboard/virtualkeyboardmousewidget.h
+    src/keyboard/virtualkeypushbutton.h
+    src/keyboard/virtualmousepushbutton.h
+    src/localantimicroserver.h
+    src/logger.h
+    src/mousedialog/mouseaxissettingsdialog.h
+    src/mousedialog/mousebuttonsettingsdialog.h
+    src/mousedialog/mousecontrolsticksettingsdialog.h
+    src/mousedialog/mousedpadsettingsdialog.h
+    src/mousedialog/springmoderegionpreview.h
+    src/mousedialog/mousesensorsettingsdialog.h
+    src/mousedialog/uihelpers/mouseaxissettingsdialoghelper.h
+    src/mousedialog/uihelpers/mousebuttonsettingsdialoghelper.h
+    src/mousedialog/uihelpers/mousecontrolsticksettingsdialoghelper.h
+    src/mousedialog/uihelpers/mousedpadsettingsdialoghelper.h
+    src/mousehelper.h
+    src/pt1filter.h
+    src/qtkeymapperbase.h
+    src/sdleventreader.h
+    src/sensorpushbuttongroup.h
+    src/setjoystick.h
+    src/simplekeygrabberbutton.h
+    src/statisticsestimator.h
+    src/stickpushbuttongroup.h
+    src/uihelpers/advancebuttondialoghelper.h
+    src/uihelpers/buttoneditdialoghelper.h
+    src/uihelpers/dpadcontextmenuhelper.h
+    src/uihelpers/dpadeditdialoghelper.h
+    src/uihelpers/gamecontrollermappingdialoghelper.h
+    src/uihelpers/joyaxiscontextmenuhelper.h
+    src/uihelpers/joycontrolstickcontextmenuhelper.h
+    src/uihelpers/joycontrolstickeditdialoghelper.h
+    src/uihelpers/joysensoriothreadhelper.h
+    src/uihelpers/joytabwidgethelper.h
+    src/vdpad.h
+    src/xml/inputdevicexml.h
+    src/xml/joyaxisxml.h
+    src/xml/joybuttonslotxml.h
+    src/xml/joybuttonxml.h
+    src/xml/joydpadxml.h
+    src/xml/setjoystickxml.h
+    src/xmlconfigmigration.h
+    src/xmlconfigreader.h
+    src/xmlconfigwriter.h
+)
 
 if(ATTACH_FAKE_CLASSES)
     LIST(APPEND antimicrox_SOURCES
-            src/fakeclasses/xbox360wireless.cpp
-            )
+        src/fakeclasses/xbox360wireless.cpp
+    )
 
     LIST(APPEND antimicrox_HEADERS
-            src/fakeclasses/xbox360wireless.h
-            )
+        src/fakeclasses/xbox360wireless.h
+    )
 endif(ATTACH_FAKE_CLASSES)
 
 set(antimicrox_FORMS
-        src/gui/aboutdialog.ui
-        src/gui/addeditautoprofiledialog.ui
-        src/gui/advancebuttondialog.ui
-        src/gui/advancestickassignmentdialog.ui
-        src/gui/axiseditdialog.ui
-        src/gui/buttoneditdialog.ui
-        src/gui/calibration.ui
-        src/gui/capturedwindowinfodialog.ui
-        src/gui/dpadeditdialog.ui
-        src/gui/editalldefaultautoprofiledialog.ui
-        src/gui/extraprofilesettingsdialog.ui
-        src/gui/gamecontrollermappingdialog.ui
-        src/gui/joycontrolstickeditdialog.ui
-        src/gui/joysensoreditdialog.ui
-        src/gui/joystickstatuswindow.ui
-        src/gui/mainsettingsdialog.ui
-        src/gui/mainwindow.ui
-        src/gui/mousesettingsdialog.ui
-        src/gui/qkeydisplaydialog.ui
-        src/gui/quicksetdialog.ui
-        src/gui/setaxisthrottledialog.ui
-        src/gui/setnamesdialog.ui
-        )
+    src/gui/aboutdialog.ui
+    src/gui/addeditautoprofiledialog.ui
+    src/gui/advancebuttondialog.ui
+    src/gui/advancestickassignmentdialog.ui
+    src/gui/axiseditdialog.ui
+    src/gui/buttoneditdialog.ui
+    src/gui/calibration.ui
+    src/gui/capturedwindowinfodialog.ui
+    src/gui/dpadeditdialog.ui
+    src/gui/editalldefaultautoprofiledialog.ui
+    src/gui/extraprofilesettingsdialog.ui
+    src/gui/gamecontrollermappingdialog.ui
+    src/gui/joycontrolstickeditdialog.ui
+    src/gui/joysensoreditdialog.ui
+    src/gui/joystickstatuswindow.ui
+    src/gui/mainsettingsdialog.ui
+    src/gui/mainwindow.ui
+    src/gui/mousesettingsdialog.ui
+    src/gui/qkeydisplaydialog.ui
+    src/gui/quicksetdialog.ui
+    src/gui/setaxisthrottledialog.ui
+    src/gui/setnamesdialog.ui
+)
 
 set(antimicrox_RESOURCES src/resources.qrc)
 
-###############################
+# ##############################
 # PLATFORM-DEPENDENT FILES
-###############################
-
+# ##############################
 if(UNIX)
     if(WITH_X11)
         LIST(APPEND antimicrox_SOURCES src/x11extras.cpp
-                src/qtx11keymapper.cpp
-                src/unixcapturewindowutility.cpp
-                src/autoprofilewatcher.cpp
-                src/gui/capturedwindowinfodialog.cpp
-                )
+            src/qtx11keymapper.cpp
+            src/unixcapturewindowutility.cpp
+            src/autoprofilewatcher.cpp
+            src/gui/capturedwindowinfodialog.cpp
+        )
         LIST(APPEND antimicrox_HEADERS src/x11extras.h
-                src/qtx11keymapper.h
-                src/unixcapturewindowutility.h
-                src/autoprofilewatcher.h
-                src/gui/capturedwindowinfodialog.h
-                )
+            src/qtx11keymapper.h
+            src/unixcapturewindowutility.h
+            src/autoprofilewatcher.h
+            src/gui/capturedwindowinfodialog.h
+        )
 
         if(WITH_XTEST)
             LIST(APPEND antimicrox_SOURCES src/eventhandlers/xtesteventhandler.cpp)
@@ -445,24 +442,24 @@ if(UNIX)
 
     if(WITH_UINPUT)
         LIST(APPEND antimicrox_SOURCES src/qtuinputkeymapper.cpp
-                src/uinputhelper.cpp
-                src/eventhandlers/uinputeventhandler.cpp
-                )
+            src/uinputhelper.cpp
+            src/eventhandlers/uinputeventhandler.cpp
+        )
         LIST(APPEND antimicrox_HEADERS src/qtuinputkeymapper.h
-                src/uinputhelper.h
-                src/eventhandlers/uinputeventhandler.h
-                )
+            src/uinputhelper.h
+            src/eventhandlers/uinputeventhandler.h
+        )
     endif(WITH_UINPUT)
 
 elseif(WIN32)
     LIST(APPEND antimicrox_SOURCES
         src/autoprofilewatcher.cpp
         src/winextras.cpp
-         src/qtwinkeymapper.cpp
-         src/gui/winappprofiletimerdialog.cpp
-         src/gui/capturedwindowinfodialog.cpp
-         src/eventhandlers/winsendinputeventhandler.cpp
-         src/joykeyrepeathelper.cpp
+        src/qtwinkeymapper.cpp
+        src/gui/winappprofiletimerdialog.cpp
+        src/gui/capturedwindowinfodialog.cpp
+        src/eventhandlers/winsendinputeventhandler.cpp
+        src/joykeyrepeathelper.cpp
     )
     LIST(APPEND antimicrox_HEADERS
         src/autoprofilewatcher.h
@@ -474,14 +471,13 @@ elseif(WIN32)
         src/joykeyrepeathelper.h
     )
     LIST(APPEND antimicrox_FORMS
-        src/gui/winappprofiletimerdialog.ui    
+        src/gui/winappprofiletimerdialog.ui
     )
 endif(UNIX)
 
-###############################
+# ##############################
 # DEFINITIONS
-###############################
-
+# ##############################
 if(UNIX)
     if(WITH_X11)
         add_definitions(-DWITH_X11)
@@ -496,10 +492,9 @@ if(UNIX)
     endif(WITH_UINPUT)
 endif(UNIX)
 
-###############################
+# ##############################
 # PACKAGES
-###############################
-
+# ##############################
 find_package(Qt5Widgets ${QT_REQUIRED_VERSION} REQUIRED)
 find_package(Qt5Core ${QT_REQUIRED_VERSION} REQUIRED)
 find_package(Qt5Gui ${QT_REQUIRED_VERSION} REQUIRED)
@@ -514,15 +509,15 @@ add_subdirectory("share/antimicrox/translations")
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 find_package(SDL2 REQUIRED)
+message("Found SDL: ${SDL2_VERSION} ${SDL2_VERSION_STRING}")
 
 if(WITH_X11)
     find_package(X11 REQUIRED)
 endif(WITH_X11)
 
-###############################
+# ##############################
 # LINKER LIBRARIES
-###############################
-
+# ##############################
 LIST(APPEND QT_LIBS Qt5::Core)
 LIST(APPEND QT_LIBS Qt5::Gui)
 LIST(APPEND QT_LIBS Qt5::Widgets)
@@ -539,31 +534,29 @@ if(UNIX)
         LIST(APPEND EXTRA_LIBS ${X11_XTest_LIB})
     endif(WITH_XTEST)
 
-     # necessary ifwe use find_package for SDL2
-     #    if(NOT DEFINED SDL2_LIBRARIES)
-#        set(SDL2_LIBRARIES SDL2::SDL2)
-#    endif()
-elseif (WIN32)
+# necessary ifwe use find_package for SDL2
+# if(NOT DEFINED SDL2_LIBRARIES)
+# set(SDL2_LIBRARIES SDL2::SDL2)
+# endif()
+elseif(WIN32)
     list(APPEND WIN_LIBS "psapi")
 endif(UNIX)
 
-
 include_directories(
-        ${CMAKE_CURRENT_BINARY_DIR}
-        "${CMAKE_CURRENT_BINARY_DIR}/src"
-        ${PROJECT_SOURCE_DIR}
-        "${PROJECT_SOURCE_DIR}/src"
-        "${PROJECT_SOURCE_DIR}/src/gui"
-        ${SDL2_INCLUDE_DIRS}
+    ${CMAKE_CURRENT_BINARY_DIR}
+    "${CMAKE_CURRENT_BINARY_DIR}/src"
+    ${PROJECT_SOURCE_DIR}
+    "${PROJECT_SOURCE_DIR}/src"
+    "${PROJECT_SOURCE_DIR}/src/gui"
+    ${SDL2_INCLUDE_DIRS}
 )
-
 
 # Store executable in a bin subdir. Needed here so translations can be loaded.
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
 
-###############################
+# ##############################
 # COMPILE & LINK
-###############################
+# ##############################
 if(UNIX)
     add_executable(antimicrox
         ${antimicrox_MAIN}
@@ -571,7 +564,7 @@ if(UNIX)
         ${antimicrox_SOURCES}
         ${antimicrox_FORMS_HEADERS}
         ${antimicrox_RESOURCES_RCC}
-        )
+    )
 elseif(WIN32)
     # The WIN32 is required to specify a GUI application.
     add_executable(antimicrox WIN32
@@ -588,19 +581,19 @@ elseif(WIN32)
 endif(UNIX)
 
 target_link_libraries(antimicrox
-        ${QT_LIBS}
-        ${X11_LIBS}
-        ${SDL2_LIBRARIES}
-        ${EXTRA_LIBS}
-        )
+    ${QT_LIBS}
+    ${X11_LIBS}
+    ${SDL2_LIBRARIES}
+    ${EXTRA_LIBS}
+)
 
 target_include_directories(antimicrox PUBLIC
-        ${SDL2_INCLUDE_DIRS}/SDL2
-        )
+    ${SDL2_INCLUDE_DIRS}/SDL2
+)
 
-###############################
+# ##############################
 # INSTALL
-###############################
+# ##############################
 
 # Specify out directory for final executable.
 install(TARGETS antimicrox RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
@@ -654,15 +647,15 @@ if(WIN32)
     add_custom_command(TARGET antimicrox POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E echo "dll files linked with antimicrox executable: $<TARGET_RUNTIME_DLLS:antimicrox> "
         COMMAND_EXPAND_LISTS
-        )
+    )
     add_custom_command(TARGET antimicrox POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:antimicrox> $<TARGET_FILE_DIR:antimicrox>
         COMMAND_EXPAND_LISTS
-        )
+    )
 
     find_path(SDL2_DLL_LOCATION_DIR "SDL2.dll" HINTS "${SDL2_LIBRARY_DIRS}/../bin")
 
-    #these three lines assume SDL2 in standard location TODO do it better
+    # these three lines assume SDL2 in standard location TODO do it better
     find_path(GCC_DLL "libgcc_s_seh-1.dll" HINTS "${SDL2_LIBRARY_DIRS}/../bin")
     find_path(PTHREAD_DLL_DIR "libwinpthread-1.dll" HINTS "${SDL2_LIBRARY_DIRS}/../bin")
     find_path(LIBCPP_DLL_DIR "libstdc++-6.dll" HINTS "${SDL2_LIBRARY_DIRS}/../bin")
@@ -677,19 +670,19 @@ if(WIN32)
         "${GCC_DLL}/libgcc_s_seh-1.dll"
         "${PTHREAD_DLL_DIR}/libwinpthread-1.dll"
         "${LIBCPP_DLL_DIR}/libstdc++-6.dll"
-        )
+    )
 
     if(CHECK_FOR_UPDATES)
         message("Searching for SSL DLL-s.")
         find_path(LIBCRYPTO_DLL_DIR "libcrypto-1_1-x64.dll" HINTS "${SDL2_LIBRARY_DIRS}/../bin")
         find_path(LIBSSL_DLL_DIR "libssl-1_1-x64.dll" HINTS "${SDL2_LIBRARY_DIRS}/../bin")
         list(APPEND DLL_FILES
-        "${LIBCRYPTO_DLL_DIR}/libcrypto-1_1-x64.dll"
-        "${LIBSSL_DLL_DIR}/libssl-1_1-x64.dll"
+            "${LIBCRYPTO_DLL_DIR}/libcrypto-1_1-x64.dll"
+            "${LIBSSL_DLL_DIR}/libssl-1_1-x64.dll"
         )
     endif(CHECK_FOR_UPDATES)
 
-    install(FILES ${DLL_FILES} TYPE BIN )
+    install(FILES ${DLL_FILES} TYPE BIN)
 
     # Required platform plugin
     get_target_property(QtCore_LOCATION Qt5::Core LOCATION)
@@ -701,13 +694,12 @@ endif(WIN32)
 
 # uninstall target
 configure_file(
-        "${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
-        "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
-        IMMEDIATE @ONLY)
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
+    IMMEDIATE @ONLY)
 
 add_custom_target(uninstall
-        COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
-
+    COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
 
 # Only way to force install target to be dependent on updateqm.
 install(CODE "execute_process(COMMAND ${CMAKE_BUILD_TOOL} updateqm WORKING_DIRECTORY \"${CMAKE_CURRENT_BINARY_DIR}\")")
@@ -715,8 +707,8 @@ install(CODE "execute_process(COMMAND ${CMAKE_BUILD_TOOL} updateqm WORKING_DIREC
 # Use this to use some variables created here in the actual project.
 # Modify the config.h.in file using the appropriate variables.
 configure_file(
-        "${PROJECT_SOURCE_DIR}/src/config.h.in"
-        "${PROJECT_BINARY_DIR}/config.h"
+    "${PROJECT_SOURCE_DIR}/src/config.h.in"
+    "${PROJECT_BINARY_DIR}/config.h"
 )
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/CHANGELOG.md DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/src/)
@@ -732,18 +724,16 @@ if(UNIX)
 elseif(WIN32)
     install(FILES share/gamecontrollerdb_windows.txt DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/antimicrox/" RENAME gamecontrollerdb.txt)
 endif(UNIX)
+
 install(FILES share/LICENSE_SDL_GameControllerDB DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/antimicrox/")
 
-###############################
+# ##############################
 # PACKAGES BUILDING WITH CPACK
-###############################
-
+# ##############################
 include(InstallRequiredSystemLibraries)
-
 
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Program used to map keyboard keys and mouse controls to a gamepad.")
 set(CPACK_PACKAGE_HOMEPAGE_URL "https://github.com/AntiMicroX/antimicrox/")
-
 
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
 
@@ -775,14 +765,14 @@ It is a new fork of discontinued AntiMicro.")
     message("Preparing documentation for DEB package")
     add_custom_target(package_docummentation ALL)
 
-    #Compress changelog and save it as share/doc/xournalpp/changelog.Debian.gz
+    # Compress changelog and save it as share/doc/xournalpp/changelog.Debian.gz
     add_custom_command(TARGET package_docummentation PRE_BUILD
-            COMMAND gzip -c -9 -n "${PROJECT_SOURCE_DIR}/CHANGELOG.md" > "changelog.gz" VERBATIM)
+        COMMAND gzip -c -9 -n "${PROJECT_SOURCE_DIR}/CHANGELOG.md" > "changelog.gz" VERBATIM)
     install(FILES "${CMAKE_CURRENT_BINARY_DIR}/changelog.gz" DESTINATION "share/doc/antimicrox/")
 
-    #Strip binaries from unnecessary notes, comments, etc
+    # Strip binaries from unnecessary notes, comments, etc
     add_custom_command(TARGET antimicrox POST_BUILD
-            COMMAND strip --strip-unneeded --remove-section=.comment --remove-section=.note "${CMAKE_CURRENT_BINARY_DIR}/bin/antimicrox" VERBATIM)
+        COMMAND strip --strip-unneeded --remove-section=.comment --remove-section=.note "${CMAKE_CURRENT_BINARY_DIR}/bin/antimicrox" VERBATIM)
 endif()
 
 if(WIN32 AND NOT UNIX)
@@ -808,22 +798,20 @@ set(CPACK_CREATE_DESKTOP_LINKS "antimicrox")
 include(CPack)
 
 if(WIN32 AND NOT UNIX)
-configure_file(
-    ${PROJECT_SOURCE_DIR}/cmake/modules/NSIS.definitions.nsh.in
-    ${CMAKE_CURRENT_BINARY_DIR}/assets/nsis/NSIS.definitions.nsh
+    configure_file(
+        ${PROJECT_SOURCE_DIR}/cmake/modules/NSIS.definitions.nsh.in
+        ${CMAKE_CURRENT_BINARY_DIR}/assets/nsis/NSIS.definitions.nsh
     )
 endif()
 
-
-###############################
+# ##############################
 # DOCS
-###############################
-
+# ##############################
 if(BUILD_DOCS)
     message("Doxygen build enabled")
     find_package(Doxygen)
 
-    if (DOXYGEN_FOUND)
+    if(DOXYGEN_FOUND)
         # set input and output files
         set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/other/Doxyfile_config.in)
         set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/docs/Doxyfile)
@@ -832,13 +820,13 @@ if(BUILD_DOCS)
         configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
 
         # note the option ALL which allows to build the docs together with the application
-        add_custom_target( doxygen_docs ALL
+        add_custom_target(doxygen_docs ALL
             COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
             WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
             COMMENT "Generating API documentation with Doxygen"
-            VERBATIM )
+            VERBATIM)
 
-    else (DOXYGEN_FOUND)
-      message("Doxygen need to be installed to generate the doxygen documentation")
-    endif (DOXYGEN_FOUND)
+    else(DOXYGEN_FOUND)
+        message("Doxygen need to be installed to generate the doxygen documentation")
+    endif(DOXYGEN_FOUND)
 endif(BUILD_DOCS)
