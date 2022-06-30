@@ -45,7 +45,7 @@ jobs:
 
             - name: Install sdl2
               run: |
-                git clone https://github.com/libsdl-org/SDL.git -b release-2.0.20
+                git clone https://github.com/libsdl-org/SDL.git -b release-2.0.12
                 cd SDL
                 ./configure
                 make
