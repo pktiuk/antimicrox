@@ -49,7 +49,7 @@ jobs:
                 cd SDL
                 ./configure
                 make
-                make install
+                sudo make install
 
             - uses: actions/checkout@v2
 
