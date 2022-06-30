@@ -50,6 +50,16 @@ jobs:
         continue-on-error: ${{ matrix.experimental }}
 
         steps:
+            - name: Install sdl2
+              run: |
+                git clone https://github.com/libsdl-org/SDL.git
+                cd SDL
+                mkdir build
+                cd build
+                cmake ..
+                cmake --build .
+                sudo cmake --install .
+
             - uses: actions/checkout@v2
 
             - name: Install Dependencies
