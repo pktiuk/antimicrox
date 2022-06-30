@@ -39,11 +39,13 @@ jobs:
 
             - name: Install Dependencies
               run: |
-                  sudo apt-get update && sudo apt-get install extra-cmake-modules qttools5-dev qttools5-dev-tools libsdl2-dev libxi-dev libxtst-dev libx11-dev itstool gettext qt5-default libsdl2-2.0-0 zsync
+                  sudo apt-get update
+                  sudo apt-get install extra-cmake-modules qttools5-dev qttools5-dev-tools libsdl2-dev libxi-dev libxtst-dev libx11-dev itstool gettext qt5-default zsync
+                  sudo apt-get remove libsdl2-dev
 
             - name: Install sdl2
               run: |
-                git clone https://github.com/libsdl-org/SDL.git
+                git clone https://github.com/libsdl-org/SDL.git -b release-2.0.20
                 cd SDL
                 mkdir build
                 cd build
