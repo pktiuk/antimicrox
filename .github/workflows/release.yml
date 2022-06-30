@@ -36,11 +36,23 @@ jobs:
         runs-on: ubuntu-18.04
 
         steps:
-            - uses: actions/checkout@v2
 
             - name: Install Dependencies
               run: |
                   sudo apt-get update && sudo apt-get install extra-cmake-modules qttools5-dev qttools5-dev-tools libsdl2-dev libxi-dev libxtst-dev libx11-dev itstool gettext qt5-default libsdl2-2.0-0 zsync
+
+            - name: Install sdl2
+              run: |
+                git clone https://github.com/libsdl-org/SDL.git
+                cd SDL
+                mkdir build
+                cd build
+                cmake ..
+                cmake --build .
+                sudo cmake --install .
+
+            - uses: actions/checkout@v2
+
 
             - name: Prepare files needed to create AppImage
               run: |
