@@ -79,7 +79,7 @@ jobs:
               run: |
                   cd build
                   export UPDATE_INFORMATION="zsync|https://github.com/$GITHUB_REPOSITORY/releases/latest/download/antimicrox-x86_64.AppImage.zsync"
-                  ./linuxdeploy-x86_64.AppImage --appdir AppDir --plugin qt --library=/usr/local/lib/libSDL2.so
+                  ./linuxdeploy-x86_64.AppImage --appdir AppDir --plugin qt --library=/usr/local/lib/libSDL2.so --library=/usr/local/lib/libSDL2-2.0.so --library=/usr/local/lib/libSDL2-2.0.so.0
                   ./appimagetool-x86_64.AppImage AppDir/ -u "$UPDATE_INFORMATION"
 
             # Upload generated files to release
