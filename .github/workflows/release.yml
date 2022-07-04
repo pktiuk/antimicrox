@@ -47,9 +47,11 @@ jobs:
               run: |
                 git clone https://github.com/libsdl-org/SDL.git -b release-2.0.12
                 cd SDL
-                ./configure
-                make
-                sudo make install
+                mkdir build
+                cd build
+                cmake ..
+                cmake --build .
+                sudo cmake --install .
 
             - uses: actions/checkout@v2
 
