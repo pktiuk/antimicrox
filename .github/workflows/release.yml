@@ -7,7 +7,7 @@ jobs:
     # Build .deb files for debian-based systems.
     build_deb:
         name: Build Debian package
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-22.04
 
         steps:
             - uses: actions/checkout@v2
