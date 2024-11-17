@@ -824,9 +824,9 @@ endif()
 if(CPACK_GENERATOR STREQUAL "DEB")
     if(QT_VERSION EQUAL 5)
         # TODO use regular, not dev packages
-        set(CPACK_DEBIAN_PACKAGE_DEPENDS "libsdl2-2.0-0 (>= ${SDL_REQUIRED_VERSION}), libc6")
+        set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt5widgets5 (>= ${QT_REQUIRED_VERSION}), libsdl2-2.0-0 (>= ${SDL_REQUIRED_VERSION}), libc6")
     else()
-        set(CPACK_DEBIAN_PACKAGE_DEPENDS "libsdl2-2.0-0 (>= ${SDL_REQUIRED_VERSION}), libc6")
+        set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt6widgets6t64 (>= ${QT_REQUIRED_VERSION}), libsdl2-2.0-0 (>= ${SDL_REQUIRED_VERSION}), libc6")
     endif()
     set(CPACK_DEBIAN_PACKAGE_MAINTAINER "pktiuk <kotiuk@zohomail.eu>")
     set(CPACK_DEBIAN_PACKAGE_DESCRIPTION "AntiMicroX is a graphical program used to map gamepad buttons to keyboard, mouse, scripts and macros.
